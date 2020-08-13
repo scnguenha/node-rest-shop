@@ -6,13 +6,13 @@ const mongoose = require("mongoose");
 
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
+const userRoutes = require("./api/routes/user")
 
-mongoose.connect("mongodb+srv://node-shop:nodeshop@node-rest-shop.y9yhs.mongodb.net/shop?retryWrites=true&w=majority", 
+mongoose.connect("mongodb+srv://"+ process.env.MONGO_ATLAS_USER +":"+ process.env.MONGO_ATLAS_PW+"@node-rest-shop.y9yhs.mongodb.net/shop?retryWrites=true&w=majority", 
     {
-        //user:process.env.MONGO_ATLAS_USER,
-        //pass:process.env.MONGO_ATLAS_PW,
         useNewUrlParser:true,
-        useUnifiedTopology:true
+        useUnifiedTopology:true,
+        useCreateIndex: true
     }
 );
 
@@ -39,7 +39,8 @@ app.use((req, res, next) => {
 
 //Routes which shoud handle requests
 app.use('/products', productRoutes);
-app.use('/orders', orderRoutes)
+app.use('/orders', orderRoutes);
+app.use('/user/', userRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
