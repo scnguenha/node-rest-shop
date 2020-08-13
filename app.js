@@ -16,6 +16,7 @@ mongoose.connect("mongodb+srv://node-shop:nodeshop@node-rest-shop.y9yhs.mongodb.
     }
 );
 
+mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
